@@ -1,16 +1,15 @@
 {
   "private": true,
-  "name": "gitpod-web-extension",
+  "name": "codecatalyst-dev-env-web-extension",
   "version": "0.0.1",
   "license": "MIT",
-  "description": "Browser extension (Chrome/Firefox/Edge) for enhancing GitLab, GitHub and Bitbucket with Gitpod buttons",
-  "main": "src/gitpodify.js",
+  "description": "Browser extension (Chrome/Firefox/Edge) for enhancing GitLab, GitHub and Bitbucket with CodeCatalyst Dev Environments buttons",
+  "main": "src/catalify.js",
   "scripts": {
     "build": "yarn clean && npx tsc && yarn webpack",
-    "build:safari": " xcrun safari-web-extension-converter . --app-name Gitpod --bundle-identifier io.gitpod.Gitpod",
-    "package": "yarn clean:package && zip -rD --exclude='src/*.ts' gitpod.xpi dist/bundles icons src manifest.json",
+    "package": "yarn clean:package && zip -rD --exclude='src/*.ts' codecatalyst-dev-env.xpi dist/bundles icons src manifest.json",
     "clean": "rimraf dist && yarn clean:package",
-    "clean:package": "rimraf gitpod.xpi",
+    "clean:package": "rimraf codecatalyst-dev-env.xpi",
     "webpack": "webpack",
     "watch": "webpack -w"
   },

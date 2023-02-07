@@ -1,5 +1,5 @@
 import { ConfigProvider } from "../config";
-import { renderGitpodUrl } from "../utils";
+import { renderCodeCatalystUrl } from "../utils";
 import { isVisible } from "../utils";
 
 export interface Injector {
@@ -35,7 +35,7 @@ export interface ButtonInjector {
 
     /**
      * Injects the actual button
-     * @param currentUrl The currently configured Gitpod URL
+     * @param currentUrl The currently configured CC Dev Environment URL
      */
     inject(currentUrl: string, openAsPopup: boolean): void;
 }
@@ -52,7 +52,7 @@ export abstract class InjectorBase implements Injector {
     abstract update(): Promise<void>;
 
     injectButtons(singleInjector: boolean = false) {
-        const currentUrl = renderGitpodUrl(this.config.gitpodURL);
+        const currentUrl = renderCodeCatalystUrl(this.config.codeCatalystURL);
         for (const injector of this.buttonInjectors) {
             if (injector.isApplicableToCurrentPage()) {
                 injector.inject(currentUrl, this.config.openAsPopup);
@@ -68,9 +68,9 @@ export abstract class InjectorBase implements Injector {
     }
 }
 
-function openInGitpod(e: MouseEvent | KeyboardEvent, inNewTab: boolean) {
+function openInCodeCatalyst(e: MouseEvent | KeyboardEvent, inNewTab: boolean) {
     const currentUrl = window.location.href;
-    window.open(`https://gitpod.io/#${currentUrl}`, inNewTab ? '_blank' : '_self');
+    window.open(`https://beta.stage.quokka.codes/spaces/NewVeloxInteg/projects/alias/dev-environments?github=${currentUrl}.git`, inNewTab ? '_blank' : '_self');
     e.preventDefault();
     e.stopPropagation();
 }
@@ -84,10 +84,10 @@ export async function rewritePeriodKeybindGitHub() {
             const new_element = elem.cloneNode(true) as HTMLElement;
             elem.parentNode?.replaceChild(new_element, elem);
             new_element.addEventListener('click', (e) => {
-                if (new_element && isVisible(new_element) && !confirm('Are you sure you want to open gitpod.io?')) {
+                if (new_element && isVisible(new_element) && !confirm('Are you sure you want to open CodeCatalyst Dev Environments?')) {
                     return;
                 }
-                openInGitpod(e, elem.classList.contains('js-github-dev-new-tab-shortcut') || config.openAsPopup);
+                openInCodeCatalyst(e, elem.classList.contains('js-github-dev-new-tab-shortcut') || config.openAsPopup);
             });
         });
     }
@@ -104,7 +104,7 @@ export async function rewritePeriodKeybindGitLab() {
 
         document.onkeydown = (e: KeyboardEvent) => {
             if (e.code === 'Period') {
-                openInGitpod(e, e.shiftKey || config.openAsPopup);
+                openInCodeCatalyst(e, e.shiftKey || config.openAsPopup);
             }
         };
     }

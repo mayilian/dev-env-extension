@@ -1,9 +1,9 @@
-# Gitpod Browser extension
+# CodeCatalyst Dev Environments Browser extension
 [![Setup Automated](https://img.shields.io/badge/setup-automated-blue?logo=gitpod)](https://gitpod.io/#https://github.com/gitpod-io/browser-extension)
 
 This is the browser extension for Gitpod. It supports Chrome (see [Chrome Web Store](https://chrome.google.com/webstore/detail/dodmmooeoklaejobgleioelladacbeki/)), Firefox (see [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/gitpod/)) and Edge (see [how to install Chrome extensions](https://support.microsoft.com/help/4538971/microsoft-edge-add-or-remove-extensions)), and adds a **Gitpod** button to the configured GitLab, GitHub and Bitbucket installations (defaults to `gitlab.com`, `github.com`, `bitbucket.org`, and `gitlab.cn`) which immediately creates a Gitpod workspace for the current Git context:
 
- ![Gitpodify](./docs/github-injected.png "Gitpodify")
+ ![Catalify](./docs/github-injected.png "Catalify")
 
 
 ## Contributing
@@ -37,8 +37,8 @@ You can test the extension without publishing to the store. Before uploading the
 
 For Chrome:
 
-1. Rename `gitpod.xpi` to `gitpod.zip`
-1. Unzip `gitpod.zip`
+1. Rename `codecatalyst-dev-env.xpi` to `codecatalyst-dev-env.zip`
+1. Unzip `gitcodecatalyst-dev-envpod.zip`
 1. Open Chrome
 1. Click Settings -> Extensions -> Load unpacked
 1. Select the unzipped folder
@@ -47,12 +47,8 @@ For Firefox
 
 1. Open Firefox
 1. Go to `about:debugging#/runtime/this-firefox`
-1. Click Load Temporary Add-on -> Select the `gitpod.xpi` file
+1. Click Load Temporary Add-on -> Select the `codecatalyst-dev-env.xpi` file
 
-For Safari (Experimental 🧪)
-
-1. Open `Gitpod/Gitpod.xcodeproj`
-1. Run the project with `cmd` + `r`. ⚠️ _Safari must have [**Allow Unsigned Extensions**](https://developer.apple.com/documentation/safariservices/safari_app_extensions/building_a_safari_app_extension) enabled._
 
 ## Release
 
@@ -102,26 +98,3 @@ For Chrome:
 1. Click "Upload new package"
 1. Upload the zip file and submit
 1. Wait a few hours for the review to happen!
-
-
-### Safari
-
-#### ⚠️ A machine running macOS and [Xcode 12+](https://developer.apple.com/xcode/) installed is required!
-
-First, run the following to install dependencies and build the web extension:
-
-```
-yarn install && yarn build && yarn package
-```
-
-Then run the `build:safari` command to build the Safari extension around the web extension:
-
-```
-yarn build:safari
-```
-
-![Confirm Safari](./docs/safari-confirm.png "Confirm Safari")
-
-Hit `enter` when presented with this screen.
-
-`Xcode` will open the `Gitpod.xcodeproj` automatically if it's installed.

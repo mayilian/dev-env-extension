@@ -2,16 +2,16 @@ import * as select from 'select-dom';
 import * as ghInjection from 'github-injection';
 import { ConfigProvider } from '../config';
 import { ButtonInjector, InjectorBase, checkIsBtnUpToDate, rewritePeriodKeybindGitHub } from './injector';
-import { renderGitpodUrl, makeOpenInPopup } from '../utils';
+import { renderCodeCatalystUrl, makeOpenInPopup } from '../utils';
 
-namespace Gitpodify {
-	export const NAV_BTN_ID = "gitpod-btn-nav";
-	export const NAV_BTN_CLASS = "gitpod-nav-btn";
+namespace Catalify {
+	export const NAV_BTN_ID = "catalyst-btn-nav";
+	export const NAV_BTN_CLASS = "catalyst-nav-btn";
     export const NAV_BTN_CLASS_SELECTOR = "." + NAV_BTN_CLASS;
 
-    export const EDIT_BTN_ID = "gitpod-btn-file";
+    export const EDIT_BTN_ID = "catalyst-btn-file";
 
-    export const CSS_REF_BTN_CONTAINER = "gitpod-btn-container";
+    export const CSS_REF_BTN_CONTAINER = "catalyst-btn-container";
     export const CSS_REF_NO_CONTAINER = "no-container";
 }
 
@@ -44,8 +44,8 @@ export class GitHubInjector extends InjectorBase {
     }
 
     checkIsInjected(): boolean {
-        const button = document.getElementById(`${Gitpodify.NAV_BTN_ID}`);
-        const currentUrl = renderGitpodUrl(this.config.gitpodURL);
+        const button = document.getElementById(`${Catalify.NAV_BTN_ID}`);
+        const currentUrl = renderCodeCatalystUrl(this.config.codeCatalystURL);
         return checkIsBtnUpToDate(button, currentUrl);
     }
 
@@ -84,7 +84,7 @@ abstract class ButtonInjectorBase implements ButtonInjector {
             return;
         }
 
-        const oldBtn = document.getElementById(Gitpodify.NAV_BTN_ID);
+        const oldBtn = document.getElementById(Catalify.NAV_BTN_ID);
         if (oldBtn) {
             if (!checkIsBtnUpToDate(oldBtn, currentUrl)) {
                 // update button
@@ -120,7 +120,7 @@ abstract class ButtonInjectorBase implements ButtonInjector {
             .forEach(primaryButton => primaryButton.classList.replace("btn-primary", "btn-secondary"));
         }
 
-        // Edit File Menu Options - Open in Gitpod
+        // Edit File Menu Options - Open in CodeCatalyst
         const editFileButton = document.querySelector('.Box-header .select-menu .SelectMenu-list') as ParentNode;
         if (editFileButton) {
             editFileButton.prepend(this.renderEditButton(currentUrl, openAsPopup));
@@ -128,19 +128,19 @@ abstract class ButtonInjectorBase implements ButtonInjector {
     }
 
     protected renderButton(url: string, openAsPopup: boolean): HTMLElement {
-        let classes = this.btnClasses + ` ${Gitpodify.NAV_BTN_CLASS}`;
+        let classes = this.btnClasses + ` ${Catalify.NAV_BTN_CLASS}`;
         if (this.float) {
             classes = classes + ` float-right`;
         }
 
         const container = document.createElement('div');
-        container.id = Gitpodify.CSS_REF_BTN_CONTAINER;
+        container.id = Catalify.CSS_REF_BTN_CONTAINER;
         container.className = classes;
 
         const a = document.createElement('a');
-        a.id = Gitpodify.NAV_BTN_ID;
-        a.title = "Gitpod";
-        a.text = "Gitpod"
+        a.id = Catalify.NAV_BTN_ID;
+        a.title = "CodeCatalyst";
+        a.text = "Create Dev Environment"
         a.href = url;
         a.target = "_blank";
         if (openAsPopup) {
@@ -159,9 +159,9 @@ abstract class ButtonInjectorBase implements ButtonInjector {
 
     protected renderEditButton(url: string, openAsPopup: boolean): HTMLElement {
         const a = document.createElement('a');
-        a.id = Gitpodify.EDIT_BTN_ID;
-        a.title = "Edit this file in Gitpod";
-        a.text = "Open in Gitpod";
+        a.id = Catalify.EDIT_BTN_ID;
+        a.title = "Edit this file in CodeCatalyst Dev Environment";
+        a.text = "Open in CodeCatalyst Dev Environment";
         a.href = url;
         a.target = "_blank";
         if (openAsPopup) {
@@ -194,7 +194,7 @@ class IssueInjector extends ButtonInjectorBase {
 
 class EditFileButtonInjector extends ButtonInjectorBase {
     constructor() {
-        super("", "gitpod-file-edit-btn");
+        super("", "catalyst-file-edit-btn");
     }
 
     isApplicableToCurrentPage(): boolean {
@@ -204,7 +204,7 @@ class EditFileButtonInjector extends ButtonInjectorBase {
 
 class FileInjector extends ButtonInjectorBase {
     constructor() {
-        super(".repository-content > div > div > div", "gitpod-file-btn");
+        super(".repository-content > div > div > div", "catalyst-file-btn");
     }
 
     protected adjustButton(a: HTMLAnchorElement): void {
@@ -232,7 +232,7 @@ class NavigationInjector extends ButtonInjectorBase {
 
 class EmptyRepositoryInjector extends ButtonInjectorBase {
     constructor() {
-        super(".repository-content > div > git-clone-help > div > div ", "gitpod-file-btn", false, true);
+        super(".repository-content > div > git-clone-help > div > div ", "catalyst-file-btn", false, true);
     }
 
     protected adjustButton(a: HTMLAnchorElement): void {

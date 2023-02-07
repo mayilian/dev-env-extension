@@ -11,7 +11,7 @@ const init = async () => {
 
     // Initialize UI
     const initialConfig = configProvider.getConfig();
-    gitpodUrlInput.value = initialConfig.gitpodURL;
+    gitpodUrlInput.value = initialConfig.codeCatalystURL;
     gitpodPopupInput.checked = initialConfig.openAsPopup;
     gitpodRewriteKeybind.checked = initialConfig.rewritePeriodKeybind;
 
@@ -21,7 +21,7 @@ const init = async () => {
     const save = () => {
         // Update config (propagated internally)
         configProvider.setConfig({
-            gitpodURL: gitpodUrlInput.value || undefined,
+            codeCatalystURL: gitpodUrlInput.value || undefined,
             openAsPopup: gitpodPopupInput.checked,
             rewritePeriodKeybind: gitpodRewriteKeybind.checked
         });

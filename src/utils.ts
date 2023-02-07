@@ -1,6 +1,6 @@
-export function renderGitpodUrl(gitpodURL: string): string {
+export function renderCodeCatalystUrl(codeCatalystURL: string): string {
     const baseURL = `${window.location.protocol}//${window.location.host}`;
-    return `${gitpodURL}/#${baseURL}` + window.location.pathname + window.location.search;
+    return `${codeCatalystURL}?github=${baseURL}` + window.location.pathname + window.location.search + `.git`;
 }
 
 export function isVisible(el: HTMLElement) {

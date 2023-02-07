@@ -2,13 +2,13 @@ import { browser, Storage } from "webextension-polyfill-ts";
 import { EventEmitter } from "events";
 
 export interface Config {
-    gitpodURL: string;
+    codeCatalystURL: string;
     openAsPopup: boolean;
     rewritePeriodKeybind: boolean;
 }
 
 export const DEFAULT_CONFIG: Config = {
-    gitpodURL: "https://gitpod.io",
+    codeCatalystURL: "https://beta.stage.quokka.codes/spaces/NewVeloxInteg/projects/alias/dev-environments",
     openAsPopup: false,
     rewritePeriodKeybind: false
 };
